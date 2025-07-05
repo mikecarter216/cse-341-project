@@ -4,7 +4,6 @@ const mongodb = require('./data/database');
 
 const PORT = process.env.PORT || 3000;
 
-// Initialize MongoDB then start the server
 mongodb.initDb((err) => {
   if (err) {
     console.error('❌ MongoDB connection failed:', err);
