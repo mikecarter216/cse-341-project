@@ -1,0 +1,257 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Contacts API",
+    "version": "1.0.0",
+    "description": "API for managing a contacts list and users using MongoDB"
+  },
+  "servers": [
+    {
+      "url": "https://cse-u6an.onrender.com"
+    }
+  ],
+  "paths": {
+    "/contacts": {
+      "get": {
+        "summary": "Get all contacts",
+        "responses": {
+          "200": {
+            "description": "A list of contacts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Contact" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contact",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Contact" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contact created successfully"
+          },
+          "400": {
+            "description": "Missing required fields"
+          }
+        }
+      }
+    },
+    "/contacts/{id}": {
+      "get": {
+        "summary": "Get a contact by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contact found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Contact" }
+              }
+            }
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a contact by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Contact" }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Contact updated successfully"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contact by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Contact deleted successfully"
+          },
+          "404": {
+            "description": "Contact not found"
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/User" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "400": {
+            "description": "Missing required fields"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "get": {
+        "summary": "Get a user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User found",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/User" }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/User" }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "User updated successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "User deleted successfully"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Contact": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string", "example": "Michael" },
+          "lastName": { "type": "string", "example": "Akpan" },
+          "email": { "type": "string", "example": "michaelakpan216@gmail.com" },
+          "favoriteColor": { "type": "string", "example": "Blue" },
+          "birthday": { "type": "string", "example": "1995-11-02" }
+        },
+        "required": ["firstName", "lastName", "email", "favoriteColor", "birthday"]
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "firstName": { "type": "string", "example": "Michael" },
+          "lastName": { "type": "string", "example": "Akpan" },
+          "email": { "type": "string", "example": "michaelakpan216@gmail.com" }
+        },
+        "required": ["firstName", "lastName", "email"]
+      }
+    }
+  }
+}

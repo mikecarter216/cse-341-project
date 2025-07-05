@@ -1,24 +1,16 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongodb = require('./data/database');
 require('dotenv').config(); // Load environment variables
+const app = require('./app'); // Express app instance
+const mongodb = require('./data/database');
 
-const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
-app.use(bodyParser.json());
-
-// Routes
-const contactsRoutes = require('./routes/contacts');
-app.use('/contacts', contactsRoutes);
-
+// Initialize MongoDB then start the server
 mongodb.initDb((err) => {
   if (err) {
-    console.error(err);
+    console.error('❌ MongoDB connection failed:', err);
   } else {
     app.listen(PORT, () => {
-      console.log(`✅ Database is connected. Node server is running on port ${PORT}`);
+      console.log(`✅ Database connected. Server running on port ${PORT}`);
     });
   }
 });
